@@ -22,6 +22,7 @@ module.exports = {
   ],
   rules: {
     'no-console': 'off',
+    'vue/require-default-prop': 'off',
     'vue/html-self-closing': [
       'warn',
       {
@@ -49,6 +50,6 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
-    'quotes': ['error', 'single'],
+    quotes: ['error', 'single'],
   },
 };
