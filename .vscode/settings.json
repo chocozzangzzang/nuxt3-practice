@@ -1,0 +1,22 @@
+{
+  "eslint.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.tabSize": 2,
+  // 파일을 저장할 때 자동 포맷을 활성화합니다.
+  "editor.formatOnSave": true, 
+
+  // JavaScript 파일의 기본 포맷터를 ESLint로 지정합니다.
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint" // 또는 Prettier (규칙이 통일되었다면)
+  }
+}
