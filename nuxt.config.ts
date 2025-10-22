@@ -5,7 +5,12 @@ export default defineNuxtConfig({
   typescript: { shim: false, typeCheck: true },
   modules: ['nuxt-quasar-ui'],
   quasar: {
-    /* */
+    plugins: ['Notify'],
+    config: {
+      notify: {
+        position: 'top-right',
+      },
+    },
   },
   imports: {
     presets: [

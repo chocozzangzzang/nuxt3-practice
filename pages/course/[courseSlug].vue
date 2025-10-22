@@ -54,7 +54,7 @@
               unelevated
               :outline="completed ? false : true"
               :icon="completed ? 'check' : undefined"
-              @click="completed = !completed"
+              @click="toggleComplete"
             />
 
             <q-input
@@ -103,6 +103,15 @@
 const route = useRoute();
 const courseSlug = route.params.courseSlug as string;
 const { course, prevCourse, nextCourse } = useCourse(courseSlug);
+
+// if (!course) {
+//   throw createError({
+//     statusCode: 404,
+//     statusMessage: 'Course Not Found',
+//     // fatal: true,
+//   });
+// }
+
 console.log('[courseSlug].vue 컴포넌트 setup hooks');
 // const title = ref('');
 definePageMeta({
@@ -110,15 +119,36 @@ definePageMeta({
   title: 'My Home Page',
   // title: title.value,
   pageType: '',
-  keepalive: true,
+  // keepalive: true,
   alias: ['/lecture/:courseSlug'],
   // layout: 'same-layout'
+  // validate : 컴포넌트 렌더링 전에 검사
+  // 또한, 다른 검사 로직이 있다면 활용할 수 있음
+  validate: (route) => {
+    const courseSlug = route.params.courseSlug as string;
+    const { course } = useCourse(courseSlug);
+    if (!course) {
+      throw createError({
+        statusCode: 404,
+        statusMessage: 'Course Not Found',
+        // fatal: true,
+      });
+    }
+    return true;
+  },
 });
 const memo = ref('');
 const completed = ref(false);
 
 const movePage = async (path: string) => {
   await navigateTo(path);
+};
+
+const toggleComplete = () => {
+  // $fetch('/api/error');
+  // showError('에러가 발생했습니다!!');
+  completed.value = !completed.value;
+  throw createError('에러가 발생했습니다!!!');
 };
 </script>
 
