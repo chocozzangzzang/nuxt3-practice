@@ -124,17 +124,22 @@ definePageMeta({
   // layout: 'same-layout'
   // validate : 컴포넌트 렌더링 전에 검사
   // 또한, 다른 검사 로직이 있다면 활용할 수 있음
-  validate: (route) => {
+  // validate -> middleware
+  // validate: (route) => {
+  middleware: (route) => {
     const courseSlug = route.params.courseSlug as string;
     const { course } = useCourse(courseSlug);
     if (!course) {
-      throw createError({
-        statusCode: 404,
-        statusMessage: 'Course Not Found',
-        // fatal: true,
-      });
+      // return navigateTo('/');
+      return abortNavigation(
+        createError({
+          statusCode: 404,
+          statusMessage: 'Course Not Found',
+          fatal: true,
+        }),
+      );
     }
-    return true;
+    // return true;
   },
 });
 const memo = ref('');
