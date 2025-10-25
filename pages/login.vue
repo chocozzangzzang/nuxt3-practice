@@ -14,7 +14,8 @@ definePageMeta({
 });
 
 const handleLoginSuccess = async () => {
-  const { isAdmin } = useAuthUser();
+  // const { isAdmin } = useAuthUser();
+  const isAdmin = useAdmin();
   const redirect = isAdmin.value ? '/admin' : '/';
   await navigateTo(redirect);
 };
