@@ -58,34 +58,38 @@
           </q-list>
         </q-btn-dropdown>
         <q-separator dark vertical />
-        <NuxtLink
-          v-if="!isAuthenticated"
-          v-slot="{ navigate }"
-          custom
-          to="/login"
-        >
+        <ClientOnly>
+          <NuxtLink
+            v-if="!isAuthenticated"
+            v-slot="{ navigate }"
+            custom
+            to="/login"
+          >
+            <q-btn
+              stretch
+              flat
+              :label="$t('login')"
+              no-caps
+              @click="navigate()"
+            />
+          </NuxtLink>
           <q-btn
+            v-else
             stretch
             flat
-            :label="$t('login')"
+            :label="$t('logout')"
             no-caps
-            @click="navigate()"
+            @click="signOut()"
           />
-        </NuxtLink>
-        <q-btn
-          v-else
-          stretch
-          flat
-          :label="$t('logout')"
-          no-caps
-          @click="signOut()"
-        />
+        </ClientOnly>
       </q-toolbar>
     </q-header>
     <q-page-container :style="pageContainerStyle">
-      <q-banner v-if="isAuthenticated" class="bg-primary text-white">
-        {{ authUser }}
-      </q-banner>
+      <ClientOnly>
+        <q-banner v-if="isAuthenticated" class="bg-primary text-white">
+          {{ authUser }}
+        </q-banner>
+      </ClientOnly>
       <slot></slot>
     </q-page-container>
   </q-layout>
@@ -93,9 +97,12 @@
 
 <script setup lang="ts">
 // const { authUser, isAuthenticated } = useAuthUser();
-const authUser = useAuthUser();
-const isAuthenticated = useAuthenticated();
-const { signOut } = useAuth();
+// const authUser = useAuthUser();
+// const isAuthenticated = useAuthenticated();
+// const { signOut } = useAuth();
+const authStore = useAuthStore();
+const { user: authUser, isAuthenticated } = storeToRefs(authStore);
+const { signOut } = authStore;
 
 const pageContainerStyle = computed(() => ({
   maxWidth: '1080px',
@@ -126,4 +133,6 @@ const { locale } = useI18n();
 const selectedLanguageName = computed(
   () => languages.value.find((lang) => lang.code === locale.value)?.name,
 );
+
+watch(locale, (val) => (useCookie('locale').value = val));
 </script>
