@@ -1,4 +1,5 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import { resolve } from 'path';
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
@@ -7,7 +8,18 @@ export default defineNuxtConfig({
     'nuxt-quasar-ui',
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
+    '@nuxtjs/i18n',
   ],
+  i18n: {
+    locales: ['en', 'ko'],
+    defaultLocale: 'ko',
+    vueI18n: resolve('./i18n.config.ts'),
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root', // recommended
+    },
+  },
   quasar: {
     plugins: ['Notify'],
     config: {
@@ -15,14 +27,6 @@ export default defineNuxtConfig({
         position: 'top-right',
       },
     },
-  },
-  imports: {
-    presets: [
-      {
-        from: 'vue-i18n',
-        imports: ['useI18n'],
-      },
-    ],
   },
   ssr: true,
   app: {
