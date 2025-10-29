@@ -36,4 +36,11 @@ export default defineNuxtConfig({
       meta: [{ name: 'description', content: '짐코딩 Vue & Nuxt 강의입니다.' }],
     },
   },
+  runtimeConfig: {
+    authCookieName: '__user',
+    jwtSecretKey: 'superkey',
+    public: {
+      clientConfigValue: 'test',
+    },
+  },
 });

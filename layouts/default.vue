@@ -2,7 +2,7 @@
   <q-layout view="hHh lpR fFf" class="bg-grey-2">
     <q-header elevated class="bg-dark text-white">
       <q-toolbar>
-        <q-toolbar-title> Vue & Nuxt Mastery Class </q-toolbar-title>
+        <q-toolbar-title>{{ appConfig.title }}</q-toolbar-title>
         <NuxtLink v-slot="{ navigate }" custom to="/">
           <q-btn
             stretch
@@ -120,4 +120,7 @@ const moveYoutube = async () => {
 const localePath = useLocalePath();
 const switchLocalePath = useSwitchLocalePath();
 // const $t = (str: string) => str;
+
+const appConfig = useAppConfig();
+console.log('appConfig : ', appConfig);
 </script>
